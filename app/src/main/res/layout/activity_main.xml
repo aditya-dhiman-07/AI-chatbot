@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:fitsSystemWindows="true"
-    android:id="@+id/main"
+    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
     tools:context=".MainActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black">
 
     <ImageView
         android:layout_width="match_parent"
@@ -77,6 +83,7 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <EditText
+        android:id="@+id/message_edittext"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -84,6 +91,7 @@
         android:paddingStart="20dp"
         android:hint="message AI"
         android:textColorHint="#6B6B6B"
+        android:textColor="@color/white"
         android:background="@drawable/edit_text_bkgrd" />
 
     <ImageButton
@@ -98,8 +106,67 @@
         android:layout_marginEnd="30dp"
         android:background="#0A0A0A"
         android:src="@drawable/send_btn1"/>
+        
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:orientation="vertical"
+        android:background="#111111">
+
+        <!-- TOP CHANGING AREA -->
+
+        <FrameLayout
+            android:id="@+id/drawerFragmentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="105dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:background="#0A0A0A"
+            android:padding="10dp">
+
+            <ImageButton
+                android:id="@+id/newChatMenu"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/newchatmenu_btn"
+                android:background="@android:color/transparent"
+                android:layout_margin="10dp"
+                android:padding="12dp"/>
+
+            <ImageButton
+                android:id="@+id/historyOption"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/history_btn"
+                android:scaleType="fitCenter"
+                android:padding="12dp"
+                android:background="@android:color/transparent"
+                android:layout_margin="10dp" />
+
+            <ImageButton
+                android:id="@+id/settingsOption"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/settings_btn"
+                android:scaleType="fitCenter"
+                android:background="@android:color/transparent"
+                android:padding="12dp"
+                android:layout_margin="10dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.drawerlayout.widget.DrawerLayout>
