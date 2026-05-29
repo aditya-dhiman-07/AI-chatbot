@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>AI Chat</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="chat-root">
+        <header class="chat-header">
+            <div class="menu-icon">&#9776;</div>
+            <div class="app-title">AI Chat</div>
+            <div class="edit-icon">&#9998;</div>
+        </header>
+        <main class="chat-main">
+            <img src="icon.png" alt="AI Logo" class="chat-logo">
+            <div class="chat-greeting">
+                <span class="chat-hello">Hello.</span>
+                <span class="chat-subtext">How can I help you today?</span>
+            </div>
+        </main>
+        <form class="chat-input-row" autocomplete="off">
+            <input type="text" class="chat-input-box" placeholder="Message AI.">
+            <button type="button" class="send-btn">
+                <svg class="send-icon" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="12" fill="rgba(255,255,255,0.15)"/>
+                    <polygon points="7,17 17,12 7,7" fill="#fff"/>
+                </svg>
+            </button>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

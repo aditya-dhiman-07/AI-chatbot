@@ -1,0 +1,1 @@
+document.querySelector('.chat-input-box').focus();

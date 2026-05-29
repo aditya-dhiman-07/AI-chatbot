@@ -1,0 +1,187 @@
+/* Import for Hello cursive (if you want a cursive look) - Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+:root {
+    --background-main: #111215;
+    --surface-dark: #18191d;
+    --text-primary: #ffffff;
+    --text-secondary: #b6b9c4;
+    --accent: #f04b73;
+    --input-bg: #1e1f22;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: var(--background-main);
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+    color: var(--text-primary);
+}
+
+body {
+    width: 100vw;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.chat-root {
+    min-height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: var(--background-main);
+    max-width: 420px;
+    margin: auto;
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 22px 10px 22px;
+    background: transparent;
+    font-size: 1.1rem;
+}
+
+.menu-icon, .edit-icon {
+    color: var(--text-secondary);
+    font-size: 1.6rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.app-title {
+    font-size: 1.3rem;
+    letter-spacing: 0.5px;
+    color: var(--text-primary);
+    font-weight: 600;
+    text-align: center;
+    flex: 1 1 0;
+}
+
+.chat-logo {
+    display: block;
+    margin: 34px auto 0 auto;
+    width: 106px;
+    height: 106px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 24px #222);
+    border-radius: 18px;
+    background: rgba(38,38,38,0.58);
+    box-shadow: 0 4px 36px 0 rgba(0,0,0,0.3);
+}
+
+.chat-main {
+    text-align: center;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.chat-greeting {
+    margin-top: 34px;
+}
+
+.chat-hello {
+    display: block;
+    font-family: 'Pacifico', cursive;
+    font-size: 2.4rem;
+    color: #fff;
+    margin-bottom: 8px;
+    letter-spacing: 1.5px;
+}
+
+.chat-subtext {
+    font-family: inherit;
+    font-size: 1.05rem;
+    color: #d0d2dd;
+    font-weight: 400;
+    letter-spacing: 0.1px;
+    opacity: 0.82;
+}
+
+.chat-input-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 540px;
+    margin: 0 auto 18px auto;
+    padding: 0 16px;
+    box-sizing: border-box;
+}
+
+.chat-input-box {
+    flex: 1;
+    background: var(--input-bg);
+    color: var(--text-primary);
+    padding: 15px 16px;
+    margin-right: 10px;
+    border-radius: 18px;
+    border: 1px solid #242529;
+    font-size: 1.1rem;
+    outline: none;
+    font-family: inherit;
+    transition: border .2s;
+    box-shadow: 0 3px 24px 0 rgba(0,0,0,0.04);
+}
+
+.chat-input-box:focus {
+    border: 1.5px solid var(--accent);
+}
+
+.send-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border: none;
+    background: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.13s;
+    flex-shrink: 0;
+    padding: 0;
+}
+
+.send-btn:active {
+    background: #232d3e;
+}
+
+.send-icon {
+    width: 32px;
+    height: 32px;
+    display: block;
+}
+
+@media (max-width: 600px) {
+    .chat-root {
+        width: 100vw;
+        min-width: unset;
+        max-width: unset;
+        border-radius: 0;
+    }
+    .chat-header, .chat-input-row {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .chat-main {
+        margin-top: 18px;
+    }
+}
+
+/* Scrollbar custom for dark look */
+::-webkit-scrollbar {
+    width: 7px;
+    background: #16181a;
+}
+::-webkit-scrollbar-thumb {
+    background: #202225;
+    border-radius: 3px;
+}
