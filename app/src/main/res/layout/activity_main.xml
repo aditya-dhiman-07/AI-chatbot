@@ -2,7 +2,7 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:fitsSystemWindows="true"
+    android:fitsSystemWindows="false"
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -141,11 +141,13 @@
 
 
     <LinearLayout
-        android:layout_width="300dp"
+        android:layout_width="380dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:orientation="vertical"
-        android:background="#111111">
+        android:background="#111111"
+        android:clickable="true"
+        android:focusable="true">
 
         <!-- TOP CHANGING AREA -->
 
@@ -159,7 +161,7 @@
             android:layout_width="match_parent"
             android:layout_height="105dp"
             android:orientation="horizontal"
-            android:layout_gravity="center"
+            android:gravity="center"
             android:background="#0A0A0A"
             android:padding="10dp">
 
@@ -181,7 +183,7 @@
                 android:scaleType="fitCenter"
                 android:padding="12dp"
                 android:background="@android:color/transparent"
-                android:layout_margin="10dp" />
+                android:layout_margin="30dp" />
 
             <ImageButton
                 android:id="@+id/settingsOption"

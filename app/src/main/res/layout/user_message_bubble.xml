@@ -13,5 +13,5 @@
         android:textSize="16sp"
         android:layout_margin="8dp"
         android:padding="12dp"
-        android:background="@drawable/chat_bubble"/>
+        android:background="@drawable/user_chat_bubble"/>
 </LinearLayout>

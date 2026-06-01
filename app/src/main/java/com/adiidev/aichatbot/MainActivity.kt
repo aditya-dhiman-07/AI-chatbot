@@ -19,6 +19,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FieldValue
 import org.w3c.dom.Text
 
 class MainActivity : AppCompatActivity() {
@@ -36,6 +38,10 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var startingText: TextView
 
+    private lateinit var drawerLayout: DrawerLayout
+
+    private val db = FirebaseFirestore.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -46,10 +52,11 @@ class MainActivity : AppCompatActivity() {
         }
         val menuBtn = findViewById<ImageButton>(R.id.menuButton)
         val newChatBtn = findViewById<ImageButton>(R.id.newChatButton)
-        val sendBtn = findViewById<ImageButton>(R.id.sendBtn)
-        val message_Ai = findViewById<EditText>(R.id.message_edittext)
+        val newChatBtn2 = findViewById<ImageButton>(R.id.newChatMenu)
 
-        val drawerLayout = findViewById<DrawerLayout>(R.id.drawerLayout)
+        val sendBtn = findViewById<ImageButton>(R.id.sendBtn)
+
+        drawerLayout = findViewById(R.id.drawerLayout)
         val historyOption = findViewById<ImageButton>(R.id.historyOption)
         val settingOption = findViewById<ImageButton>(R.id.settingsOption)
 
@@ -67,7 +74,7 @@ class MainActivity : AppCompatActivity() {
             ).commit()
         }
         newChatBtn.setOnClickListener {
-            Toast.makeText(this, "newChat Button clicked!", Toast.LENGTH_SHORT).show()
+            startNewChat()
         }
 
         editText = findViewById(R.id.message_edittext)
@@ -111,17 +118,86 @@ class MainActivity : AppCompatActivity() {
                 HistoryFragment()
             ).commit()
         }
+
         settingOption.setOnClickListener {
             supportFragmentManager.beginTransaction().replace(
                 R.id.drawerFragmentContainer,
                 SettingsFragment()
             ).commit()
         }
+
         recycleView = findViewById(R.id.chatRecyclerView)
         messageList = mutableListOf()
         adapter = MessageAdapter(messageList)
 
         recycleView.adapter = adapter
         recycleView.layoutManager = LinearLayoutManager(this)
+
+
+        newChatBtn.setOnClickListener {
+            startNewChat()
+        }
+
+        newChatBtn2.setOnClickListener {
+            startNewChat()
+            drawerLayout.closeDrawer(GravityCompat.START)
+        }
+    }
+
+    fun clearChatFromSettings() {
+        // 1. Firestore mein saari sessions ko "hidden" mark karein
+        db.collection("sessions")
+            .get()
+            .addOnSuccessListener { documents ->
+                for (doc in documents) {
+                    // Delete nahi kar rahe, sirf ek flag laga rahe hain
+                    db.collection("sessions").document(doc.id)
+                        .update("isHidden", true)
+                }
+            }
+
+        // 2. Current screen clear karein
+        messageList.clear()
+        adapter.notifyDataSetChanged()
+
+        welcomeImage.visibility = View.VISIBLE
+        helloText.visibility = View.VISIBLE
+        startingText.visibility = View.VISIBLE
+        recycleView.visibility = View.GONE
+        editText.text.clear()
+        
+        drawerLayout.closeDrawer(GravityCompat.START)
+    }
+
+    private fun startNewChat() {
+        if (messageList.isNotEmpty()) {
+            saveChatSessionToFirestore(messageList.toList())
+        }
+        
+        messageList.clear()
+        adapter.notifyDataSetChanged()
+
+        welcomeImage.visibility = View.VISIBLE
+        helloText.visibility = View.VISIBLE
+        startingText.visibility = View.VISIBLE
+        recycleView.visibility = View.GONE
+        
+        editText.text.clear()
+    }
+
+    private fun saveChatSessionToFirestore(messages: List<Message>) {
+        val firstUserMessage = messages.firstOrNull { it.isUser }?.text ?: "New Chat"
+        val sessionData = hashMapOf(
+            "title" to if (firstUserMessage.length > 30) firstUserMessage.take(30) + "..." else firstUserMessage,
+            "messages" to messages.map { mapOf("text" to it.text, "isUser" to it.isUser) },
+            "timestamp" to FieldValue.serverTimestamp(),
+            "isHidden" to false
+        )
+
+        db.collection("sessions")
+            .add(sessionData)
+            .addOnFailureListener {
+                Toast.makeText(this, "Failed to save history", Toast.LENGTH_SHORT).show()
+            }
     }
 }
